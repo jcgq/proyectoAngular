@@ -3,7 +3,7 @@ import {formatDate, registerLocaleData} from '@angular/common';
 import { Cliente } from './cliente';
 import { of,Observable, throwError} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {map, catchError }from 'rxjs/operators';
+import {map, catchError, tap }from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -18,6 +18,14 @@ export class ClienteService {
 
   getClientes(): Observable<Cliente[]>{
     return this.http.get<Cliente[]>(this.urlEndPoint).pipe(
+      tap(response => {
+        let clientes = response as Cliente[];
+        console.log("ClienteService: tag1");
+        clientes.forEach(cliente => {
+          console.log(cliente.nombre);
+        }
+        )
+      }),
       map( response => {
         let clientes = response as Cliente[];
 
@@ -27,7 +35,14 @@ export class ClienteService {
           return cliente;
         });
       }
-      )
+      ),
+      tap(response => {
+        console.log("ClienteService: tag2");
+        response.forEach(cliente => {
+          console.log(cliente.nombre);
+        }
+        )
+      })
     );
   }
 
