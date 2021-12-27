@@ -1,4 +1,4 @@
-<ul *ngIf="paginas?.length > 0" class="pagination">
+<ul *ngIf="paginas?.length > 0" class="pagination" style="overflow: scroll;">
 
     <li class="page-item" *ngIf="paginador.number > 0">
         <a class="page-link" [routerLink]="['/clientes/page', paginador.number-1]">&laquo;</a>
@@ -14,7 +14,7 @@
     </li>
 
     <li [ngClass]="paginador.last?'disabled page-item': 'page-item'">
-        <a class="page-link" [routerLink]="['/clientes/page', 0]">Última</a>
+        <a class="page-link" [routerLink]="['/clientes/page', paginador.number+1]">Última</a>
     </li>
     
     <li class="page-item" *ngIf="paginador.number < paginador.totalPages-1">
