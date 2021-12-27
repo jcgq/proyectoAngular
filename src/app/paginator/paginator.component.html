@@ -4,9 +4,17 @@
         <a class="page-link" [routerLink]="['/clientes/page', paginador.number-1]">&laquo;</a>
     </li>
 
-    <li class="page-item" *ngFor = "let pagina of paginas" [ngClass]="paginador.number == pagina-1?'disabled':''">
+    <li [ngClass]="paginador.first?'disabled page-item': 'page-item'">
+        <a class="page-link" [routerLink]="['/clientes/page', 0]">Primera</a>
+    </li>
+
+    <li class="page-item" *ngFor = "let pagina of paginas" [ngClass]="paginador.number == pagina-1?'active':''">
         <span class="page-link" *ngIf="paginador.number == pagina-1">{{pagina}}</span>
         <a *ngIf="paginador.number != pagina-1" class="page-link" [routerLink]="['/clientes/page', pagina-1]">{{pagina}}</a>
+    </li>
+
+    <li [ngClass]="paginador.last?'disabled page-item': 'page-item'">
+        <a class="page-link" [routerLink]="['/clientes/page', 0]">Última</a>
     </li>
     
     <li class="page-item" *ngIf="paginador.number < paginador.totalPages-1">
